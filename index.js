@@ -1,13 +1,13 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiZG90bHkiLCJhIjoiY2tpbnA0YjljMTVhcTM0cGVzYjZibzEyMSJ9.fmuvKLVnmue6RxfqZjeLPQ';
 const bounds = [
-    [-122.2731865311,37.8649156263], // Southwest coordinates
-    [-122.2696450974,37.8692519126] // Northeast coordinates
+    [-122.276284,37.862629], // Southwest coordinates
+    [-122.266383,37.871718] // Northeast coordinates
     ];
     
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/dotly/cks70umfn8csj17o6on8pcnsr', // style URL
-    center: [-122.27141618728639,37.867341144574], // starting position [lng, lat]
+    center: [-122.27139538124986,37.86716711208095], // starting position [lng, lat]
     zoom: 16, // starting zoom
     maxBounds: bounds // max bounds
 });
@@ -74,11 +74,6 @@ map.on('load', () => {
     });
 
     map.on('click', 'berkeley-high-campus-buildings', (e) => {
-        map.flyTo({
-            center: e.features[0].geometry.coordinates,
-            zoom: 18,
-            essential: true // this animation is considered essential with respect to prefers-reduced-motion
-        });
     });
 
     map.on('click', 'berkeley-high-campus-locations-and-gates', (e) => {
@@ -99,8 +94,6 @@ map.on('load', () => {
             var name = 'Gate ' + name;
         };
 
-        // show sidepanel
-        sidepanel.style.marginLeft = '0px';
         // set popup content
 
         if (image_url !== undefined) {
@@ -122,6 +115,12 @@ map.on('load', () => {
             `;
         } else {
             sidepanel_body.innerHTML = '';
-        }
+        };
+
+        // show sidepanel
+        sidepanel.style.marginLeft = '0px';
+    });
+
+    map.on('click', (e) => {
     });
 });
