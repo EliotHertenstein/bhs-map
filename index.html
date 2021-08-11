@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Berkeley High Map</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<script src="https://kit.fontawesome.com/0f926a83db.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+.mapboxgl-popup {
+    /* add rounded corners */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    /* disable pointer events on the popup */
+    pointer-events: none;
+}
+#sidepanel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    z-index: 10;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: -500px;
+    max-width: 100%;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+}
+
+#sidepanel hr {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+#sidepanel-header {
+    position: static;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+}
+
+#sidepanel-header h3 {
+    font-size: 14px;
+    color: black;
+    margin: 0;
+    border: 0;
+    padding: 15px;
+    vertical-align: center;
+    /* open sans bold */
+    font-family: 'Google','Sans','Roboto','Arial','sans-serif';
+    line-height: 1.75rem;
+    font-size: 1.375rem;
+    letter-spacing: 0;
+    font-weight: 400;
+}
+
+#sidepanel-header img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: relative;
+}
+
+.close-button {
+  background-color: transparent; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  height: 25px;
+  width: 25px;
+  font-size: 20px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  position: absolute; /* Absolute positioning */
+  top: 0; /* Top position */
+  right: 0; /* Right position */
+}
+
+.black-button {
+    color: black !important;
+}
+
+#sidepanel-body {
+    position: static;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: 'Roboto','Arial','sans-serif';
+    font-weight: 400;
+    font-size: .875rem;
+    letter-spacing: .0142857143em;
+}
+</style>
+</head>
+<body>
+<!-- add hidden sidepanel -->
+<div id="sidepanel">
+    <div id="sidepanel-content">
+        <div id="sidepanel-header">
+            <button onclick="closeSidepanel()" class='close-button'>&times;</button>
+            <img src="https://www.berkeleyside.org/wp-content/uploads/2018/03/BHS-admin-front-of-school.jpg" alt="Berkeley High" />
+            <h3>Berkeley High Map</h3>
+        </div>
+        <hr>
+        <div id="sidepanel-content">
+            <div id="sidepanel-body">
+                    <a>Filler Description</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="map"></div>
+<!-- add external script -->
+<script src="./index.js"></script>
+</body>
+</html>
