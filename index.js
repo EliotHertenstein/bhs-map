@@ -4,6 +4,7 @@ const bounds = [
     [-122.266383,37.871718] // Northeast coordinates
     ];
     
+// Create a map
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/dotly/cks70umfn8csj17o6on8pcnsr', // style URL
