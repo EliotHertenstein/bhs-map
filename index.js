@@ -1,13 +1,3 @@
-// redirect http to https
-if (location.protocol == 'http:') {
-    location.replace(`https:${location.href.substring(location.protocol.length)}`);
-}
-
-// redirect non-www to www
-if (window.location.hostname.indexOf("www") == 0) {
-    window.location = window.location.href.replace("www.","");
-}
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiZG90bHkiLCJhIjoiY2tpbnA0YjljMTVhcTM0cGVzYjZibzEyMSJ9.fmuvKLVnmue6RxfqZjeLPQ';
 const bounds = [
     [-122.276284,37.862629], // Southwest coordinates

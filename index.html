@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html>
+<script>
+    // redirect http to https
+    if (location.protocol == 'http:') {
+        location.replace(`https:${location.href.substring(location.protocol.length)}`);
+    }
+
+    // redirect non-www to www
+    if (window.location.hostname.indexOf("www") == 0) {
+        window.location = window.location.href.replace("www.","");
+    }
+</script>
 <head>
 <meta charset="utf-8">
 <title>Berkeley High Map</title>
