@@ -10,7 +10,8 @@ const map = new mapboxgl.Map({
     style: 'mapbox://styles/dotly/cks70umfn8csj17o6on8pcnsr', // style URL
     center: [-122.27139538124986,37.86716711208095], // starting position [lng, lat]
     zoom: 16, // starting zoom
-    maxBounds: bounds // max bounds
+    maxBounds: bounds, // max bounds
+    minZoom: 16, // min zoom
 });
 
 var modal = document.getElementById("aboutPopup");
@@ -56,6 +57,8 @@ const sidepanel = document.getElementById('sidepanel');
 const sidepanel_header = document.getElementById('sidepanel-header');
 
 const sidepanel_body = document.getElementById('sidepanel-body');
+
+const sidepanel_links = document.getElementById('sidepanel-links');
 
 function closeSidepanel() {
     sidepanel.style.marginLeft = '-500px'
@@ -115,6 +118,12 @@ map.on('load', () => {
 
         var image_url = e.features[0].properties.image_url;
 
+        var phone = e.features[0].properties.phone;
+
+        var website = e.features[0].properties.website;
+
+        var hours = e.features[0].properties.hours;
+
         if (e.features[0].properties.type === 'gate') {
             var name = 'Gate ' + name;
         };
@@ -139,7 +148,38 @@ map.on('load', () => {
                 <a>${description}</a>
             `;
         } else {
-            sidepanel_body.innerHTML = '';
+            sidepanel_body.innerHTML = `No description available. <a href='https://docs.google.com/forms/d/e/1FAIpQLSdCduWIwbj8MMzP2OflIIDYdfFojEyIEjBzkhs568521-pkWA/viewform?usp=pp_url&entry.1172436174=${name}'>Add one?<a>`;
+        };
+
+        // add links to sidepanel
+
+        if (website !== undefined) {
+            sidepanel_links.innerHTML = `
+            ${sidepanel_links.innerHTML}
+            <p><i class="fas fa-globe fa-lg icon-padding"></i><a class='clean-hyperlink' href='https://${website}'>${website}</a></p>
+            `;
+        } else {
+            sidepanel_links.innerHTML = ``;
+        };
+
+        console.log(sidepanel_links.innerHTML);
+
+        if (phone !== undefined) {
+            sidepanel_links.innerHTML += `
+            <p><i class="fas fa-phone fa-lg icon-padding"></i><a class='clean-hyperlink' href='tel:${phone}'>${phone}</a></p>
+            `;
+        } else {
+            sidepanel_links.innerHTML += ``;
+        };
+
+        console.log(sidepanel_links.innerHTML);
+
+        if (hours !== undefined) {
+            sidepanel_links.innerHTML += `
+            <p><i class="fas fa-clock fa-lg icon-padding"></i><a>${hours}</a></p>
+            `;
+        } else {
+            sidepanel_links.innerHTML += ``;
         };
 
         // show sidepanel

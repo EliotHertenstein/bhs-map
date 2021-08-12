@@ -10,6 +10,8 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <script src="https://kit.fontawesome.com/0f926a83db.js" crossorigin="anonymous"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
 <link href="./modal.css" rel="stylesheet">
 <style>
@@ -96,7 +98,22 @@ body { margin: 0; padding: 0; }
 #sidepanel-body {
     position: static;
     top: 0;
-    width: 100%;
+    width: 92%;
+    height: 100%;
+    background: #fff;
+    padding: 15px;
+    overflow-y: auto;
+    overflow-x: clip;
+    font-family: 'Roboto','Arial','sans-serif';
+    font-weight: 400;
+    font-size: .875rem;
+    letter-spacing: .0142857143em;
+}
+
+#sidepanel-links {
+    position: static;
+    bottom: 0;
+    width: 92%;
     height: 100%;
     background: #fff;
     padding: 15px;
@@ -106,6 +123,19 @@ body { margin: 0; padding: 0; }
     font-weight: 400;
     font-size: .875rem;
     letter-spacing: .0142857143em;
+}
+
+#sidepanel-links p {
+    margin-top: 0;
+}
+
+.icon-padding {
+    padding-right: 10px;
+}
+
+.clean-hyperlink {
+    text-decoration: none !important;
+    color: black !important;
 }
 </style>
 </head>
@@ -119,10 +149,11 @@ body { margin: 0; padding: 0; }
             <h3>Berkeley High Map</h3>
         </div>
         <hr>
-        <div id="sidepanel-content">
-            <div id="sidepanel-body">
-                    <a>Filler Description</a>
-            </div>
+        <div id="sidepanel-body">
+            <a>Filler Description</a>
+        </div>
+        <hr>
+        <div id="sidepanel-links">
         </div>
     </div>
 </div>
@@ -136,6 +167,7 @@ body { margin: 0; padding: 0; }
       <div class="modal-body">
         This interactive map of Berkeley High is a digital version of the map available on the BHS website. To suggest a feature, or to report a bug, please contact me through my personal website at <a href="https://eliothertenstein.com">https://eliothertenstein.com</a>.
         <p>Created by Eliot Hertenstein<p>
+        <p><a href='https://forms.gle/EvXoJ1Gfi8Hmfki48'>Contribute to the Map</a></p>
       </div>
     </div>
   </div>
