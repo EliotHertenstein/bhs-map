@@ -27,6 +27,7 @@ function aboutMap() {
     }
     else {
       modal.style.display = "block";
+      closeSidepanel();
     };
 };
 
