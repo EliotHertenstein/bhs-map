@@ -1,3 +1,13 @@
+// redirect http to https
+if (location.protocol == 'http:') {
+    location.replace(`https:${location.href.substring(location.protocol.length)}`);
+}
+
+// redirect non-www to www
+if (window.location.hostname.indexOf("www") == 0) {
+    window.location = window.location.href.replace("www.","");
+}
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiZG90bHkiLCJhIjoiY2tpbnA0YjljMTVhcTM0cGVzYjZibzEyMSJ9.fmuvKLVnmue6RxfqZjeLPQ';
 const bounds = [
     [-122.276284,37.862629], // Southwest coordinates
@@ -12,6 +22,44 @@ const map = new mapboxgl.Map({
     maxBounds: bounds // max bounds
 });
 
+var modal = document.getElementById("aboutPopup");
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+};
+
+function aboutMap() {
+    if(modal.style.display == "block"){
+      modal.style.display = "none";
+    }
+    else {
+      modal.style.display = "block";
+    };
+};
+
+class AboutControl { 
+    onAdd(map) {
+    this._map = map;
+    this._container = document.createElement('div');
+    this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+    this._container.innerHTML = '<div> <button class="custom-icon" type="button" title="About" aria-label="About" aria-pressed="false"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 600 600"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/> </svg> </button> </div>';
+    this._container.addEventListener('click', function(e) {
+      aboutMap();
+    }, false)
+  
+    return this._container;
+    }
+     
+    onRemove() {
+    this._container.parentNode.removeChild(this._container);
+    this._map = undefined;
+    }
+};
+
+const aboutControl = new AboutControl();
+
 const sidepanel = document.getElementById('sidepanel');
 
 const sidepanel_header = document.getElementById('sidepanel-header');
@@ -23,19 +71,6 @@ function closeSidepanel() {
 };
 
 map.on('load', () => {   
-    // add directions
-
-    var directions = new MapboxDirections({
-        accessToken: mapboxgl.accessToken,
-        unit: 'imperial',
-        profile: 'mapbox/walking',
-        position: 'top-left',
-        interactive: false,
-        controls: {
-            inputs: false,
-            profileSwitcher: false
-        }
-      });
 
     // add geolocate control
     map.addControl(new mapboxgl.GeolocateControl({
@@ -45,9 +80,8 @@ map.on('load', () => {
     // add navigation control
     map.addControl(new mapboxgl.NavigationControl());
 
-    // add directions control
-    map.addControl(directions);
-
+    // add about control
+    map.addControl(aboutControl);
 
     var popup = new mapboxgl.Popup({
         closeButton: false,

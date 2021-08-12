@@ -3,12 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title>Berkeley High Map</title>
+<!-- add favicon -->
+<link rel="shortcut icon" href="./favicon.ico">
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <script src="https://kit.fontawesome.com/0f926a83db.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+<link href="./modal.css" rel="stylesheet">
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -124,6 +127,18 @@ body { margin: 0; padding: 0; }
     </div>
 </div>
 <div id="map"></div>
+<div id="aboutPopup" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Berkeley High Map</h2>
+      </div>
+      <div class="modal-body">
+        This interactive map of Berkeley High is a digital version of the map available on the BHS website. To suggest a feature, or to report a bug, please contact me through my personal website at <a href="https://eliothertenstein.com">https://eliothertenstein.com</a>.
+        <p>Created by Eliot Hertenstein<p>
+      </div>
+    </div>
+  </div>
 <!-- add external script -->
 <script src="./index.js"></script>
 </body>
