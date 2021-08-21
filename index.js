@@ -112,6 +112,11 @@ map.on('load', () => {
             essential: true // this animation is considered essential with respect to prefers-reduced-motion
         });
 
+        // clear html for popup
+        sidepanel_body.innerHTML = '';
+        sidepanel_links.innerHTML = '';
+        sidepanel_header.innerHTML = '';
+
         var name = e.features[0].properties.name;
 
         var description = e.features[0].properties.description;
