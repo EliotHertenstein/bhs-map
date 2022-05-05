@@ -227,7 +227,7 @@ map.on("load", () => {
     try {
       map.flyTo({
         center: [+windowLng, +windowLat],
-        zoom: windowZoom || 16,
+        zoom: windowZoom,
         essential: true, // this animation is considered essential with respect to prefers-reduced-motion
       });
     } catch (e) {
@@ -280,16 +280,19 @@ map.on("load", () => {
       });
     }
 
+    var popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: true,
+    }).setHTML(`Set this location to your clipboard`);
+
     // on map right click, create prompt to share location
     map.on("contextmenu", (e) => {
-      // create prompt to share location
-      // get the mouse click coordinates
-      prompt(
-        "Share your location with the community.\n\n" +
-          "Copy and paste this link into your browser:",
+      popup.setLngLat(e.lngLat).addTo(map);
+      // create a popup at the map click location, with the text "Set this location to your clipboard
+      navigator.clipboard.writeText(
         `${window.location.href.split("?")[0]}?share=true&lat=${
           e.lngLat.lat
-        }&lng=${e.lngLat.lng}`
+        }&lng=${e.lngLat.lng}&zoom=20`
       );
     });
   }
