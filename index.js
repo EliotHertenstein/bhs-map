@@ -212,8 +212,8 @@ map.on("load", () => {
 
   map.on("click", (e) => {});
 
-  // update url params on zoom, pan, and move rounded to 5 decimal places
-  map.on("move", () => {
+  // update url params on zoom, pan, and move rounded to 5 decimal places after a move ends
+  map.on("moveend", () => {
     urlParams.set("lat", Math.round(map.getCenter().lat * 10000) / 10000);
     urlParams.set("lng", Math.round(map.getCenter().lng * 10000) / 10000);
     urlParams.set("zoom", Math.round(map.getZoom() * 100) / 100);
