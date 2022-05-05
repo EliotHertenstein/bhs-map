@@ -57,9 +57,10 @@ class AboutControl {
 
 // get url params lat, lng, zoom
 var urlParams = new URLSearchParams(window.location.search);
-var lat = urlParams.get("lat");
-var lng = urlParams.get("lng");
-var zoom = urlParams.get("zoom");
+var windowLat = urlParams.get("lat");
+var windowLng = urlParams.get("lng");
+var windowZoom = urlParams.get("zoom");
+var windowShare = urlParams.get("share");
 
 const aboutControl = new AboutControl();
 
@@ -221,11 +222,75 @@ map.on("load", () => {
   });
 
   // set map center to url params on load
-  if (lat !== undefined && lng !== undefined && zoom !== undefined) {
-    map.flyTo({
-      center: [lng, lat],
-      zoom: zoom,
-      essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+  if (windowLat && windowLng) {
+    console.log([+windowLng, +windowLat]);
+    try {
+      map.flyTo({
+        center: [+windowLng, +windowLat],
+        zoom: windowZoom || 16,
+        essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+      });
+    } catch (e) {
+      console.log(e);
+      // fly to normal center
+      map.flyTo({
+        center: [-122.26, 37.87],
+        zoom: 10,
+        essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+      });
+    }
+
+    console.log([+windowLng, +windowLat]);
+
+    // if url param share is true, drop a pin on the map
+    if (windowShare === "true") {
+      // drop a pin
+      console.log([+windowLng, +windowLat]);
+      map.addSource("share-pin", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [+windowLng, +windowLat],
+              },
+              properties: {
+                name: "Shared Location",
+              },
+            },
+          ],
+        },
+      });
+
+      console.log(map.getSource("share-pin"));
+
+      map.addLayer({
+        id: "share-pin",
+        type: "circle",
+        source: "share-pin",
+        paint: {
+          "circle-radius": 8,
+          "circle-color": "#ff0000",
+          "circle-stroke-width": 3,
+          "circle-stroke-color": "#fff",
+        },
+      });
+    }
+
+    // on map right click, create prompt to share location
+    map.on("contextmenu", (e) => {
+      // create prompt to share location
+      // get the mouse click coordinates
+      prompt(
+        "Share your location with the community.\n\n" +
+          "Copy and paste this link into your browser:",
+        `${window.location.href.split("?")[0]}?share=true&lat=${
+          e.lngLat.lat
+        }&lng=${e.lngLat.lng}`
+      );
     });
   }
 });
