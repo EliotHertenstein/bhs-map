@@ -215,9 +215,9 @@ map.on("load", () => {
 
   // update url params on zoom, pan, and move rounded to 5 decimal places after a move ends
   map.on("moveend", () => {
-    urlParams.set("lat", Math.round(map.getCenter().lat * 10000) / 10000);
-    urlParams.set("lng", Math.round(map.getCenter().lng * 10000) / 10000);
-    urlParams.set("zoom", Math.round(map.getZoom() * 100) / 100);
+    urlParams.set("lat", Math.round(map.getCenter().lat * 1000000) / 1000000);
+    urlParams.set("lng", Math.round(map.getCenter().lng * 1000000) / 1000000);
+    urlParams.set("zoom", Math.round(map.getZoom() * 1000) / 1000);
     window.history.pushState("", "", `?${urlParams.toString()}`);
   });
 
@@ -235,7 +235,7 @@ map.on("load", () => {
       // fly to normal center
       map.flyTo({
         center: [-122.26, 37.87],
-        zoom: 10,
+        zoom: 20,
         essential: true, // this animation is considered essential with respect to prefers-reduced-motion
       });
     }
